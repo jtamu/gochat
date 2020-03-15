@@ -1,0 +1,29 @@
+version: '3' # docker-composeファイルの書式バージョン。最新の’３’を指定（2019/6/27現在）
+
+services:
+  dev: # 任意の名前（ディレクトリ名 + dev がコンテナ名となります）
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./src:/go/src
+    ports:
+      - "81:80"
+    tty:
+      true
+
+  db:
+    image: postgres:10
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    ports:
+      - "5431:5432"
+    volumes:
+      - database:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d
+
+volumes:
+  database:
+    driver: local
