@@ -9,8 +9,6 @@ services:
       - ./src:/go/src
     ports:
       - "81:80"
-    tty:
-      true
 
   db:
     image: postgres:10
