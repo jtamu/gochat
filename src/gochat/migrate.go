@@ -5,6 +5,7 @@ import (
   "fmt"
   "github.com/jinzhu/gorm"
   _ "github.com/lib/pq"
+  "gochat/models"
 )
 
 func gormConnect() *gorm.DB {
@@ -21,7 +22,6 @@ func gormConnect() *gorm.DB {
   if err != nil {
     panic(err.Error())
   }
-  fmt.Println("db connected: ", &db)
   return db
 }
 
@@ -29,4 +29,9 @@ func main()  {
   db := gormConnect()
   defer db.Close()
   db.LogMode(true)
+  fmt.Println("auto-migration start")
+  for _, model := range models.Migrations() {
+    db.AutoMigrate(model)
+  }
+  fmt.Println("auto-migration end")
 }
