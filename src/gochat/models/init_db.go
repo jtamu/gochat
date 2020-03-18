@@ -1,4 +1,4 @@
-package main
+package models
 
 import (
   "os"
@@ -7,7 +7,9 @@ import (
   _ "github.com/lib/pq"
 )
 
-func gormConnect() *gorm.DB {
+var DB = Init()
+
+func Init() *gorm.DB {
   dbms := "postgres"
   host := os.Getenv("POSTGRES_HOST")
   port := os.Getenv("POSTGRES_PORT")
@@ -17,16 +19,10 @@ func gormConnect() *gorm.DB {
 
   connect := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable", host, port, user, dbname, password)
   db, err := gorm.Open(dbms, connect)
+  db.LogMode(true)
 
   if err != nil {
     panic(err.Error())
   }
-  fmt.Println("db connected: ", &db)
   return db
-}
-
-func main()  {
-  db := gormConnect()
-  defer db.Close()
-  db.LogMode(true)
 }
