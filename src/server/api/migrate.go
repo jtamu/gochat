@@ -3,7 +3,7 @@ package main
 import (
   "fmt"
   _ "github.com/lib/pq"
-  . "gochat/models"
+  . "server/api/models"
 )
 
 func main()  {
