@@ -2,14 +2,14 @@ package main
 
 import (
   "fmt"
-  . "server/api/controllers"
+  "server/api/controllers"
 )
 
 var (
-  uc = new(UsersController)
+  uc = new(controllers.UsersController)
 )
 
-func main()  {
+func main() {
 
   users := uc.Index()
   for _, user := range users {
