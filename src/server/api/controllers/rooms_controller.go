@@ -9,7 +9,7 @@ type RoomsController struct{}
 
 func (rc *RoomsController) Index(c *gin.Context) {
   rooms := models.Rooms{}
-  models.All(&rooms)
+  rooms.All()
   c.JSON(200, rooms)
   return
 }
@@ -17,7 +17,7 @@ func (rc *RoomsController) Index(c *gin.Context) {
 func (rc *RoomsController) Show(c *gin.Context) {
   room := models.Room{}
   id := c.Params.ByName("id")
-  models.Find(&room, id)
+  room.Find(id)
   c.JSON(200, room)
   return
 }

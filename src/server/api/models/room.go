@@ -9,3 +9,16 @@ type Room struct {
 }
 
 type Rooms []Room
+
+func (room *Room) columns() ([]string) {
+  columns := []string{"id", "name", "owner_id"}
+  return columns
+}
+
+func (rooms *Rooms) All()  {
+  DB.Select(new(Room).columns()).Find(&rooms)
+}
+
+func (room *Room) Find(id string)  {
+  DB.Select(new(Room).columns()).First(&room, id)
+}

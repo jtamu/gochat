@@ -9,7 +9,7 @@ type UsersController struct{}
 
 func (uc *UsersController) Index(c *gin.Context) {
   users := models.Users{}
-  models.All(&users)
+  users.All()
   c.JSON(200, users)
   return
 }
@@ -17,7 +17,7 @@ func (uc *UsersController) Index(c *gin.Context) {
 func (uc *UsersController) Show(c *gin.Context) {
   user := models.User{}
   id := c.Params.ByName("id")
-  models.Find(&user, id)
+  user.Find(id)
   c.JSON(200, user)
   return
 }
