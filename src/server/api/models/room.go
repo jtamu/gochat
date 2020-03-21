@@ -7,3 +7,5 @@ type Room struct {
   Owner_id uint `json:"owner_id"`
   Name string `json:"name"`
 }
+
+type Rooms []Room

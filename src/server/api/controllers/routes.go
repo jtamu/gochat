@@ -6,14 +6,23 @@ import (
 
 var (
   uc = new(UsersController)
+  rc = new(RoomsController)
 )
 
 func Init() {
   r := gin.Default()
-  u := r.Group("/users")
+
+  ug := r.Group("/users")
   {
-    u.GET("", uc.Index)
-    u.GET("/:id", uc.Show)
+    ug.GET("", uc.Index)
+    ug.GET("/:id", uc.Show)
   }
+
+  rg := r.Group("/rooms")
+  {
+    rg.GET("", rc.Index)
+    rg.GET("/:id", rc.Show)
+  }
+
   r.Run(":8080")
 }
