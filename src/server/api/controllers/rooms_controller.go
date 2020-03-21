@@ -2,22 +2,14 @@ package controllers
 
 import (
   "server/api/models"
-  "github.com/gin-gonic/gin"
 )
 
-type RoomsController struct{}
-
-func (rc *RoomsController) Index(c *gin.Context) {
-  rooms := models.Rooms{}
-  rooms.All()
-  c.JSON(200, rooms)
-  return
+type RoomsController struct{
+  Controller
 }
 
-func (rc *RoomsController) Show(c *gin.Context) {
-  room := models.Room{}
-  id := c.Params.ByName("id")
-  room.Find(id)
-  c.JSON(200, room)
+func NewRoomsController() (rc RoomsController) {
+  rc.resource = new(models.Room)
+  rc.resources = new(models.Rooms)
   return
 }

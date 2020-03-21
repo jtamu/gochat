@@ -5,8 +5,8 @@ import (
 )
 
 var (
-  uc = new(UsersController)
-  rc = new(RoomsController)
+  uc = NewUsersController()
+  rc = NewRoomsController()
 )
 
 func Init() {

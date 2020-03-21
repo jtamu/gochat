@@ -2,22 +2,14 @@ package controllers
 
 import (
   "server/api/models"
-  "github.com/gin-gonic/gin"
 )
 
-type UsersController struct{}
-
-func (uc *UsersController) Index(c *gin.Context) {
-  users := models.Users{}
-  users.All()
-  c.JSON(200, users)
-  return
+type UsersController struct{
+  Controller
 }
 
-func (uc *UsersController) Show(c *gin.Context) {
-  user := models.User{}
-  id := c.Params.ByName("id")
-  user.Find(id)
-  c.JSON(200, user)
+func NewUsersController() (uc UsersController) {
+  uc.resource = new(models.User)
+  uc.resources = new(models.Users)
   return
 }
