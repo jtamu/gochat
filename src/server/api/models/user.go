@@ -21,3 +21,7 @@ func (users *Users) All()  {
 func (user *User) Find(id string)  {
   DB.Select(new(User).columns()).First(&user, id)
 }
+
+func (user *User) Messages(messages *Messages) {
+  DB.Model(user).Related(messages)
+}

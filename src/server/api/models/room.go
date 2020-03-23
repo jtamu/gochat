@@ -22,3 +22,7 @@ func (rooms *Rooms) All()  {
 func (room *Room) Find(id string)  {
   DB.Select(new(Room).columns()).First(&room, id)
 }
+
+func (room *Room) Messages(messages *Messages) {
+  DB.Model(room).Related(messages)
+}

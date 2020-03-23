@@ -1,9 +1,15 @@
 package main
 
 import (
-  "server/api/controllers"
+  "server/api/models"
+  "fmt"
 )
 
 func main() {
-  controllers.Init()
+  room := new(models.Room)
+  room.Find("1")
+  fmt.Println(room)
+  messages := new(models.Messages)
+  room.Messages(messages)
+  fmt.Println(messages)
 }

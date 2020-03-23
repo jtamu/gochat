@@ -3,6 +3,7 @@ package models
 var models = []interface{}{
   &User{},
   &Room{},
+  &Message{},
 }
 
 func AutoMigrate()  {
