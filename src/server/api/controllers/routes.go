@@ -7,6 +7,7 @@ import (
 var (
   uc = NewUsersController()
   rc = NewRoomsController()
+  mc = NewMessagesController()
 )
 
 func Init() {
@@ -22,6 +23,12 @@ func Init() {
   {
     rg.GET("", rc.Index)
     rg.GET("/:id", rc.Show)
+  }
+
+  mg := r.Group("/rooms/:id/messages")
+  {
+    mg.GET("", mc.Index)
+    mg.GET("/:id", mc.Show)
   }
 
   r.Run(":8080")
