@@ -29,6 +29,7 @@ func Init() {
   {
     mg.GET("", mc.Index)
     mg.GET("/:id", mc.Show)
+    mg.POST("", mc.Create)
   }
 
   r.Run(":8080")
