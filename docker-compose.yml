@@ -23,6 +23,14 @@ services:
       - database:/var/lib/postgresql/data
       - ./initdb:/docker-entrypoint-initdb.d
 
+  node:
+    build:
+      context: .
+      dockerfile: ./Dockerfile_node
+    ports:
+      - "3001:3000"
+    tty: true
+
 volumes:
   database:
     driver: local
