@@ -5,7 +5,7 @@ import (
   "github.com/gin-gonic/gin"
   "gopkg.in/olahol/melody.v1"
   "log"
-  _ "encoding/json"
+  "encoding/json"
   _ "io/ioutil"
 )
 
@@ -33,14 +33,20 @@ func (ctr *MessagesController) init_melody() {
   })
 
   ctr.melody.HandleMessage(func(s *melody.Session, msg []byte) {
-    ctr.melody.Broadcast(msg)
+    message := new(models.Message)
+    json.Unmarshal(msg, message)
+    res, _ := json.Marshal(message)
+    ctr.melody.BroadcastFilter(res, func(q *melody.Session) bool {
+      // 同じURL => 同じRoomにいる人全員に送信する
+      return q.Request.URL.Path == s.Request.URL.Path
+    })
   })
 }
 
 // GET "/" : DBに保存されたMessageを全て取得
 
 // GET "/ws" : websocket connection open
-func (ctr *MessagesController) WsConnect(c *gin.Context)  {
+func (ctr *MessagesController) WsConnect(c *gin.Context) {
   ctr.melody.HandleRequest(c.Writer, c.Request)
 }
 
