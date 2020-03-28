@@ -28,8 +28,7 @@ func Init() {
   mg := r.Group("/rooms/:id/messages")
   {
     mg.GET("", mc.Index)
-    mg.GET("/:id", mc.Show)
-    mg.POST("", mc.Create)
+    mg.GET("/ws", mc.WsConnect)
   }
 
   r.Run(":8080")
