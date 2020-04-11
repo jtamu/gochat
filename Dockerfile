@@ -1,6 +1,6 @@
 FROM golang:latest
 
-COPY ./src /go/src
+COPY ./src/server/api /go/src/server/api
 
 RUN apt-get -y update \
 	&& apt-get -y install postgresql-client \

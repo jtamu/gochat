@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
     volumes:
-      - ./src:/go/src
+      - ./src/server/api:/go/src/server/api
     ports:
       - "81:80"
     env_file: ./.env
@@ -29,8 +29,13 @@ services:
       dockerfile: ./Dockerfile_node
     ports:
       - "3001:3000"
+    volumes:
+      - ./src/server/front:/home/node/gochat_front
+      - node_modules:/home/node/gochat_front/node_modules
     tty: true
 
 volumes:
   database:
+    driver: local
+  node_modules:
     driver: local
