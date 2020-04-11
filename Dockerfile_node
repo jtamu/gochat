@@ -9,13 +9,13 @@ RUN mkdir ~/.npm-global \
 
 RUN exec /bin/bash -l
 
-RUN npm install -g wscat yarn
+RUN npm install -g npm \
+  && npm install -g wscat yarn
 
-COPY ./src/server/front /home/node/gochat_front
+COPY --chown=node:node ./src/server/front/package.json /home/node/gochat_front/package.json
 WORKDIR /home/node/gochat_front
+
 RUN yarn install
 
-ENV PORT 3000
-EXPOSE 3000
-
-CMD yarn start
+ENTRYPOINT ["yarn"]
+CMD ["start"]
