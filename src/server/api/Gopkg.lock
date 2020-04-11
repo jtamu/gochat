@@ -2,6 +2,14 @@
 
 
 [[projects]]
+  digest = "1:ae8d4268210394a71e5785af821856a8f939e8429879a377c7fcf94b0f47aba1"
+  name = "github.com/gin-contrib/cors"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "3ce2e80966d59f18f21ca3544f57856072274179"
+  version = "v1.3.1"
+
+[[projects]]
   digest = "1:3ee1d175a75b911a659fbd860060874c4f503e793c5870d13e5a0ede529a63cf"
   name = "github.com/gin-contrib/sse"
   packages = ["."]
@@ -169,6 +177,7 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/gin-contrib/cors",
     "github.com/gin-gonic/gin",
     "github.com/jinzhu/gorm",
     "github.com/lib/pq",

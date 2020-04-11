@@ -2,6 +2,7 @@ package controllers
 
 import (
   "github.com/gin-gonic/gin"
+  "github.com/gin-contrib/cors"
 )
 
 var (
@@ -11,7 +12,12 @@ var (
 )
 
 func Init() {
+  // CORS 対応
+  config := cors.DefaultConfig()
+  config.AllowOrigins = []string{"http://localhost:3001"}
+
   r := gin.Default()
+  r.Use(cors.New(config))
 
   ug := r.Group("/users")
   {
@@ -31,5 +37,5 @@ func Init() {
     mg.GET("/ws", mc.WsConnect)
   }
 
-  r.Run(":8080")
+  r.Run(":80")
 }

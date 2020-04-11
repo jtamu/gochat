@@ -10,6 +10,7 @@ services:
     ports:
       - "81:80"
     env_file: ./.env
+    tty: true
 
   db:
     image: postgres:10
