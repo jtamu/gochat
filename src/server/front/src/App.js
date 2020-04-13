@@ -83,19 +83,15 @@ class MessagesArea extends Component {
     })
 
     this.props.ws.onmessage = (msgevent) => {
-      console.log("received")
-      console.log(this.state.messages)
+      console.log("** received **")
       var msg = [JSON.parse(msgevent.data)]
-      console.log(msg)
       this.setState({
         messages: this.state.messages.concat(msg)
       })
-      console.log(this.state.messages)
     }
   }
 
   render() {
-    console.log(this.state.messages)
     return (
       <TableContainer component={Paper}>
         <Table>
@@ -126,25 +122,47 @@ const Message = (props) => {
 class CommentArea extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      commentText: ""
+    }
+  }
+  changeText(event) {
+    this.setState({commentText: event.target.value})
   }
   comment() {
     var message = {
-      content: "hello"
+      content: this.state.commentText
     }
     this.props.ws.send(JSON.stringify(message))
-    console.log("send")
+    this.setState({commentText: ""})
+    console.log("** send **")
+  }
+  handleSubmit(event) {
+    event.preventDefault()
+  }
+  keyDown(event) {
+    if (event.keyCode == 13) {
+      this.comment()
+    }
   }
   render() {
     return (
       <Paper zDepth={2}>
-        <TextField label="コメント" />
-        <Button
-          label="Send"
-          variant="contained"
-          color="primary"
-          endIcon={<Icon>send</Icon>}
-          onClick={() => {this.comment()}}
-        />
+        <form onSubmit={this.handleSubmit}>
+          <TextField
+            label="コメント"
+            value={this.state.commentText}
+            onChange={(e) => {this.changeText(e)}}
+            onKeyDown={(e) => {this.keyDown(e)}}
+          />
+          <Button
+            label="Send"
+            variant="contained"
+            color="primary"
+            endIcon={<Icon>send</Icon>}
+            onClick={() => {this.comment()}}
+          />
+        </form>
       </Paper>
     )
   }
