@@ -35,6 +35,7 @@ func (ctr *MessagesController) init_melody() {
   ctr.melody.HandleMessage(func(s *melody.Session, msg []byte) {
     message := new(models.Message)
     json.Unmarshal(msg, message)
+    go message.Create()
     res, _ := json.Marshal(message)
     ctr.melody.BroadcastFilter(res, func(q *melody.Session) bool {
       // 同じURL => 同じRoomにいる人全員に送信する
@@ -49,15 +50,3 @@ func (ctr *MessagesController) init_melody() {
 func (ctr *MessagesController) WsConnect(c *gin.Context) {
   ctr.melody.HandleRequest(c.Writer, c.Request)
 }
-
-/*
-// Create : Messageを送信する
-// @override
-func (ctr *MessagesController) Create(c *gin.Context) {
-  body, _ := ioutil.ReadAll(c.Request.Body)
-  json_bytes := ([]byte)(body)
-  msg := new(models.Message)
-  json.Unmarshal(json_bytes, msg)
-  c.JSON(200, msg)
-}
-*/

@@ -34,3 +34,7 @@ func (message *Message) User(user *User) {
 func (message *Message) Room(room *Room)  {
   room.Find(lib.ToS(message.RoomId))
 }
+
+func (message *Message) Create() {
+  DB.Create(message)
+}
